@@ -12,9 +12,8 @@ export const cat = async (dir) => {
         await finished(readable);
     } catch (err) {
         if (err.code === 'EISDIR' || err.code === 'ENOENT') {
-            console.error('Operation failed');
-        } else {
-            throw new Error(err);
+            throw Error('Operation failed');
         }
+        throw new Error(err);
     }
 };

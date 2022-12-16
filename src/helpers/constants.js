@@ -27,4 +27,40 @@ export const commands = {
         name: 'cp',
         numberOfArgs: 2,
     },
+    mv: {
+        name: 'mv',
+        numberOfArgs: 2,
+    },
+    rm: {
+        name: 'rm',
+        numberOfArgs: 1,
+    },
+    os: {
+        name: 'os',
+        numberOfArgs: 1,
+    },
+    hash: {
+        name: 'hash',
+        numberOfArgs: 1,
+    },
+    compress: {
+        name: 'compress',
+        numberOfArgs: 2,
+    },
+    decompress: {
+        name: 'decompress',
+        numberOfArgs: 2,
+    },
+    '.exit': {
+        name: '.exit',
+        numberOfArgs: 0,
+    }
+}
+
+export const OSCommands = {
+    EOL: '--EOL',
+    cpus: '--cpus',
+    homedir: '--homedir',
+    username: '--username',
+    architecture: '--architecture',
 }

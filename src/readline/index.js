@@ -8,6 +8,12 @@ import {
     addFile,
     rename,
     copyFile,
+    moveFile,
+    removeFile,
+    executeOSCommand,
+    calculateHash,
+    compress,
+    decompress,
 } from '../commands/index.js';
 import { commands } from '../helpers/constants.js';
 import { validateCLI } from '../helpers/validators.js';
@@ -53,6 +59,33 @@ export const readline = () => {
                 case commands.cp.name: {
                     await copyFile(...values);
                     break;
+                }
+                case commands.mv.name: {
+                    await moveFile(...values);
+                    break;
+                }
+                case commands.rm.name: {
+                    await removeFile(values[0]);
+                    break;
+                }
+                case commands.os.name: {
+                    executeOSCommand(values[0]);
+                    break;
+                }
+                case commands.hash.name: {
+                    await calculateHash(values[0]);
+                    break;
+                }
+                case commands.compress.name: {
+                    await compress(...values);
+                    break;
+                }
+                case commands.decompress.name: {
+                    await decompress(...values);
+                    break;
+                }
+                case '.exit': {
+                    process.exit();
                 }
             }
         } catch (err) {

@@ -5,9 +5,8 @@ export const addFile = async (dir) => {
         await fs.writeFile(dir, '', { flag: 'wx' });
     } catch (err) {
         if (err.code = 'EEXIST') {
-            console.error('Operation failed');
-        } else {
-            console.error(err);
+            throw Error('Operation failed');
         }
+        throw new Error(err);
     }
 };

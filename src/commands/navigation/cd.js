@@ -3,9 +3,8 @@ export const changeDirectory = (dir) => {
         process.chdir(dir);
     } catch (err) {
         if (err.code = 'ENOENT') {
-            console.error('Operation failed');
-        } else {
-            throw new Error(err);
+            throw Error('Operation failed');
         }
+        throw new Error(err);
     }
 }

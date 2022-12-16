@@ -1,9 +1,10 @@
 import { pipeline } from 'stream/promises';
 import { createWriteStream, createReadStream } from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 import { isFileExisting } from '../../helpers/validators.js';
 
-export const copyFile = async (pathToFile, pathToNewDir) => {
+export const moveFile = async (pathToFile, pathToNewDir) => {
     const fileName = path.basename(pathToFile);
     const newPathToFile = `${pathToNewDir}/${fileName}`;
 
@@ -19,6 +20,7 @@ export const copyFile = async (pathToFile, pathToNewDir) => {
         const writable = createWriteStream(newPathToFile);
 
         await pipeline(readable, writable);
+        await fs.unlink(pathToFile);
     } catch (err) {
         if (err.code === 'ENOENT') {
             throw Error('Operation failed');

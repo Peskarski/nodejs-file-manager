@@ -1,5 +1,4 @@
 import { helloMessage, goodbyeMessage, directionMessage } from '../helpers/messages.js';
-import { rl } from '../readline/index.js';
 
 const start = () => {
     const userNameArg = process.argv.find((arg) => arg.toString().startsWith('--username'));
@@ -12,9 +11,8 @@ const start = () => {
     console.log(helloMessage(userName));
     console.log(directionMessage(process.cwd()));
 
-    rl.on('SIGINT', () => {
+    process.on('exit', () => {
         console.log(goodbyeMessage(userName));
-        process.exit();
     });
 }
 

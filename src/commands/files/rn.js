@@ -6,15 +6,14 @@ export const rename = async (pathToFile, newName) => {
     const dirname = path.dirname(pathToFile);
     try {
         if (await isFileExisting(`${dirname}/${newName}`)) {
-            throw new Error('Operation failed');
+            throw Error('Operation failed');
         }
 
         await fs.rename(pathToFile, `${dirname}/${newName}`);
     } catch (err) {
         if (err.code === 'ENOENT') {
-            console.error('Operation failed');
-        } else {
-            console.error(err.message);
+            throw Error('Operation failed');
         }
+        throw new Error(err);
     }
 };

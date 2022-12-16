@@ -1,8 +1,9 @@
 import fs, { constants } from 'fs/promises';
 
 export const validateCLI = (command, numberOfArgsGiven) => {
-    if (command?.numberOfArgs !== numberOfArgsGiven || !command) {
-        throw new Error ('Invalid input');
+    const isInputWrong = command?.numberOfArgs !== numberOfArgsGiven || !command;
+    if (isInputWrong) {
+        throw new Error('Invalid input');
     }
 }
 
