@@ -1,5 +1,5 @@
 import { createWriteStream, createReadStream } from 'fs';
-import { createGzip } from 'zlib';
+import zlib from 'zlib';
 import { pipeline } from 'stream/promises';
 import path from 'path';
 import { isFileExisting } from '../../helpers/validators.js';
@@ -17,8 +17,9 @@ export const compress = async (pathToFile, pathToCompressedFile) => {
     try {
         const readable = createReadStream(pathToFile);
         const writable = createWriteStream(pathToCompressedFile, { flags: 'wx' });
+        const brotliCompress = zlib.createBrotliCompress();
 
-        await pipeline(readable, createGzip(), writable);
+        await pipeline(readable, brotliCompress, writable);
     } catch (err) {
         if (err.code === 'ENOENT' || err.code === 'EEXIST') {
             throw Error('Operation failed');

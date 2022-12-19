@@ -1,5 +1,5 @@
 import { createWriteStream, createReadStream } from 'fs';
-import { createGunzip } from 'zlib';
+import zlib from 'zlib';
 import path from 'path';
 import { pipeline } from 'stream/promises';
 import { isFileExisting } from '../../helpers/validators.js';
@@ -17,8 +17,9 @@ export const decompress = async (pathToFile, pathToDecompressedFile) => {
     try {
         const readable = createReadStream(pathToFile);
         const writable = createWriteStream(pathToDecompressedFile, { flags: 'wx' });
+        const brotliDecompress = zlib.createBrotliDecompress();
 
-        await pipeline(readable, createGunzip(), writable);
+        await pipeline(readable, brotliDecompress, writable);
     } catch (err) {
         if (err.code === 'ENOENT' || err.code === 'EEXIST') {
             throw Error('Operation failed');
